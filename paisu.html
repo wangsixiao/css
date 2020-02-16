@@ -1,0 +1,63 @@
+<!<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+  
+</body>
+<script>
+  var arr = [45,66,7,1,23,44,577,89,9,2,3,443,65,76,34]
+  // 快速
+  function kuaisu(arr, l, r){
+    if(l < r){
+      // 获取比较数
+      var flag = arr[l], left = l, right = r
+      while(left < right){
+        // 从右边找比flag小的数，大的话指针向左继续比较
+        while(left < right && arr[right] >= flag){
+          right--;
+        }
+        // 找到右边比flag小的数 或者没有 进行交换 交换指针指向
+        if(left < right){
+          arr[left++] = arr[right]
+        }
+        // 从左边找比flag大的数 找到进行替换 否则指针向右继续比较
+        while(left < right && arr[left] < flag){
+          left++;
+        }
+        if(left < right){
+          arr[right--] = arr[left]
+        }
+      }
+      // 比较数归位
+      arr[left] = flag;
+      // 第一轮之后分成左右两个数组，左边的都比flag小，右边的都比flag大。再对左右两数组进行排序
+      kuaisu(arr, l, right - 1)
+      kuaisu(arr, left + 1, r)
+    }
+    console.log(arr)
+  }
+  // kuaisu(arr, 0, 14)
+
+  // 冒泡
+  function maopao(arr){
+    for(var i = 0; i < arr.length; i++){
+      for(var j = 0; j < arr.length - i - 1; j++){
+        if(arr[j] > arr[j+1]){
+          var flag = arr[j]
+          arr[j] = arr[j+1]
+          arr[j+1] = flag
+        }
+      }
+    }
+    console.log(arr)
+  }
+  // maopao(arr)
+  // 
+</script>
+</html>

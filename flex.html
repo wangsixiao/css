@@ -1,0 +1,106 @@
+<!<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+  <script src="main.js"></script>
+</head>
+<body>
+  
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="flex.css" />
+  <style>
+    .container{
+      display: flex;
+      height: 100%;
+      justify-content: space-around;
+      /* flex-flow: column; */
+      align-items: stretch;
+      /* align-items: center; */
+    }
+    .d1{
+      display: inline-block;
+      width: 100px;
+      height: 50px;
+      border: 1px solid red;
+    }
+    .d2{
+      display: inline-block;
+      width: 200px;
+      height: 100px;
+      border: 1px solid blue;
+    }
+    .d3{
+      display: inline-block;
+      width: 300px;
+      height: 100px;
+      border: 1px solid green;
+    }
+  </style>
+</head>
+<body>
+  <!-- flex -->
+  <!-- <div class="container">
+        <div class="d1"></div>
+        <div class="d2"></div>
+        <div class="d3"></div>
+  </div> -->
+
+  <!-- 左侧固定 右侧自适应 头部固定 -->
+  <!-- <div class="flow-two flow">
+    <div class="header">header</div>
+    <div class="flow-left">left</div>
+    <div class="flow-right">right</div>
+  </div> -->
+  <!-- 左右固定 -->
+  <div class="flow-three flow">
+    <div class="header">header</div>
+    <div class="flow-left">left</div>
+    <div class="flow-right">right</div>
+    <div class="flow-content">content</div>
+  </div>
+
+</body>
+
+<script>
+  var myObject={
+　　a:1,
+　　a2:1,
+　　a1:1,
+　　b:2,
+　　c:3
+}
+// for(let key in myObject){
+//   console.log("continue")
+//   if(key === "b"){
+//     console.log(myObject[key])
+//     break;
+//   }
+// }
+// Object.keys(myObject).map(item => {
+//   console.log("continue")
+//   if(item === "b"){
+//     console.log(myObject[item])
+//   }
+// })
+a()
+function a(){
+  console.log(1)
+}
+b()
+var b = function(){
+  console.log(b)
+}
+</script>
+</html>

@@ -1,0 +1,64 @@
+.flow .header{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  border: 1px solid rebeccapurple;
+  width: 100%;
+  height:100px;
+}
+.flow .flow-left{
+  width: 100px;
+  border: 1px solid green;
+  height:300px;
+}
+.flow .flow-right{
+  border: 1px solid blue;
+  height: 1011110px;
+}
+/* flex */
+/* .flow-two{
+  display: flex;
+  align-items: stretch;
+}
+.flow-two .flow-left{
+  margin-top: 110px;
+}
+.flow-two .flow-right{
+  margin-top: 110px;
+  flex: 1;
+} */
+
+/* float */
+.flow-two .flow-left{
+  float: left;
+}
+.flow-two .flow-right{
+  /* margin-left: 110px; */
+  overflow: hidden;
+  margin-top: 110px;
+}
+
+/* 左右固定 */
+/* flex */
+/* .flow-three{
+  display: flex;
+}
+.flow-three .flow-content{
+  flex: 1;
+  border: 1px solid orange;
+}
+.flow-three .flow-right{
+  width: 300px;
+} */
+/* float left和right必须放在前面 */
+.flow-three .flow-left{
+  float: left;
+}
+.flow-three .flow-content{
+  overflow: hidden;
+  border: 1px solid orange;
+}
+.flow-three .flow-right{
+  width: 300px;
+  float: right;
+}

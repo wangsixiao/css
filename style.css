@@ -1,0 +1,40 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  float: left;
+  list-style: none;
+}
+img{
+  width: 600px;
+  height: 538px;
+}
+.wrapper{
+  position: relative;
+  width: 600px;
+  height: 538px;
+  /* 隐藏多余的图片 */
+  overflow: hidden;
+  margin: 30px auto;
+}
+.gallery{
+  width: 3000px;
+  /* 定位图片位置 */
+  position: absolute;
+  left: -600px;
+  top: 0px;
+}
+.btn{
+  position: absolute;
+  top: 265px;
+  cursor: pointer;
+  font-size: 22px;
+}
+.prev{
+  left: 10px;
+}
+.next{
+  right: 10px;
+}

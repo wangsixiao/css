@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>轮播图</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+  <script src="jQuery.js"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <ul class="gallery">
+      <li><img src='./images/c.jpg'/></li>
+      <li><img src='./images/a.jpg'/></li>
+      <li><img src='./images/b.jpg'/></li>
+      <li><img src='./images/c.jpg'/></li>
+      <li><img src='./images/a.jpg'/></li>
+    </ul>
+    <div class="btn prev">&lt;</div>
+    <div class="btn next">&gt;</div>
+  </div>
+</body>
+<script src="jQuery.js"></script>
+<script>
+  $(function(){
+    let index = 1;
+    let timer = null;
+    // 后
+    $(".next").click(function(){
+      next()
+    })
+    function next() {
+      index++;
+      $(".gallery").animate({ left: -(index)*600 }, 500);
+      if(index > 3){
+        // 最后一张
+        index = 1;
+        $(".gallery").animate({ left: -(index)*600 }, 0)
+      }
+    }
+    // 前
+    $(".prev").click(function(){
+      prev()
+    })
+    function prev() {
+      index--;
+      $(".gallery").animate({ left: -(index)*600 }, 500);
+      if(index < 1){
+        // 第一张
+        index = 3;
+        $(".gallery").animate({ left: -(index)*600 }, 0);
+      }
+    }
+    // 自动播放
+    function auto() {
+      timer = setInterval(function(){
+        next()
+      }, 2000)
+    }
+    auto()
+    // 鼠标事件
+    $(".wrapper").mousemove(function(){
+      clearInterval(timer)
+    })
+    $(".wrapper").mouseleave(function(){
+      auto()
+    })
+  })
+</script>
+</html>

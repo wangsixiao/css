@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>轮播图</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+  <script src="jQuery.js"></script>
+  <style>
+    .wrapper{
+      display: flex;
+      display: -webkit-flex;
+    }
+    .dom{
+      /* min-width:200px; */
+      /* height: 100px; */
+      background-color: greenyellow;
+      margin: 10px;
+    }
+    .left{
+      border: 1px solid red;
+      width: 100px;
+      height: 100px;
+      float: left;
+    }
+    .right{
+      border: 1px solid green;
+      width: 100px;
+      height: 100px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="dom" style="order:12">1</div>
+    <div class="dom" style="order:1">[{"EmailAddr":"839278392@qq.com","EmailId":51,"EmailReceiveState":1,"EmailReceiveStateTitle":"收取正常","IsShowEditEmail":true},{"EmailAddr":"2252054208@qq.com","EmailId":68,"EmailReceiveState":1,"EmailReceiveStateTitle":"收取正常","IsShowEditEmail":true},{"EmailAddr":"shm_fighting@163.com","EmailId":61,"EmailReceiveState":5,"EmailReceiveStateTitle":"网络异常，请稍候尝试手动收取","IsShowEditEmail":true}]2</div>
+    <div class="dom" style="order: 4">3</div>
+  </div>
+  <div class="checkDom">
+      <input id="allchoose" type="checkbox" name="allchoose" value="all"><label>全选</label>
+      <input type="checkbox" name="choose" value="1"><label>1</label>
+      <input type="checkbox" name="choose" value="2"><label>2</label>
+      <input type="checkbox" name="choose" value="3"><label>3</label>
+  </div>
+  
+</body>
+<script src="jQuery.js"></script>
+<script>
+  var $uid = $('#allchoose');
+  $uid.click(function() {
+    var allcheck = $("input[name=choose]")
+    Array.from(allcheck).forEach((element, index) => {
+        if($uid.prop("checked")){
+          $(element).prop("checked", true)
+        }else{
+          $(element).prop("checked", false)
+        }
+    });
+  })
+// 选中复选框uid
+console.log( $uid.attr("checked") ); // checked
+console.log( $uid.prop("checked") ); // true
+  console.log(a)
+  // console.log(b)
+  a = 1;
+  // b = 2;
+  console.log(a)
+  // console.log(b)
+  var a;
+  let b;
+  a = 3;
+  b = 4;
+  console.log(a)
+  console.log(b)
+  $(function(){
+    $(".test").click(function(event){
+      console.log(event)
+      debugger
+    })
+    function suanfa(value) {
+      // 列举的所有数字
+      let arrList = []
+      // 字符串拆分情况有几种
+      let splitValue = value.split('')
+      arrList = arrList.concat(splitValue)
+      // arrList = [...splitValue]
+      arrList.push(value)
+      splitValue.reduce((prev, cur) => {
+        arrList.push(prev+cur)
+        return cur
+      })
+      // 获取能
+    }
+    suanfa("123")
+  })
+</script>
+</html>

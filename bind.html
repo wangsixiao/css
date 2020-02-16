@@ -1,0 +1,54 @@
+<!<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  
+</body>
+<script>
+  // 绑定函数开始
+  Function.prototype.mybind = function(){
+    let context = [].shift.call(arguments),
+    args = [].slice.call(arguments),
+    self = this
+    return function(){
+      let argsInner = [].slice.call(arguments)
+      self.apply(context, args.concat(argsInner))
+    }
+  }
+  function A(m, n){
+    let name = "a"
+    console.log(name + m + n)
+  }
+  var B =  (a,b) => {
+    let name = "b"
+    console.log(name + a + b)
+  }
+  const a = { name: "this is a"}
+  // A(1,2)
+  let test = A.mybind(a, 1)(2)
+  let testb = B.mybind(a, 3)(4)
+  // 绑定函数结束
+
+//   var len = 10;
+// function fn() {
+// 	console.info(this.len)
+// }
+// fn();
+// var Person = {
+// 	len: 5,
+// 	say: function() {
+//     fn();
+//     var argFun = [...arguments][0];
+//     argFun();
+//     [...arguments][0]()
+// 	}
+// }
+// Person.say(fn);
+
+</script>
+</html>

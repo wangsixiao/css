@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>css3样式</title>
+	<style type="text/css">
+	*{
+		margin:0;
+		padding: 0;
+	}
+		ul{
+			width: 300px;
+			height: 50px;
+			background: #000;
+			margin: 100px auto;
+		}
+		li{
+			width: 100px;
+			float: left;
+			list-style: none;
+			color: #fff;
+			text-align: center;
+			line-height: 50px;
+			cursor: pointer;
+			display: inline-block;
+			position: relative;
+		}
+		li:after{
+			content: ' ';
+			background-color: red;
+		    width: 100px;
+		    height: 5px;
+		    position: absolute;
+		    bottom: 0;
+		    left: 0;
+		    transform: scaleX(0);
+		    transition: ease-in-out 0.2s;
+		}
+		.active:after,li:hover:after{
+			transform: scaleX(1);
+		}
+	</style>
+</head>
+<body>
+<ul>
+	<li class="active"><span>tab1</span></li>
+	<li>tab2</li>
+	<li>tab3</li>
+</ul>
+</body>
+<script type="text/javascript" src="./jQuery.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("ul").on("click", "li", function(e){
+			let target = $(e.target)
+			$("li").removeClass('active')
+			target.addClass("active")
+		})
+	})
+</script>
+</html>

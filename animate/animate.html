@@ -1,0 +1,208 @@
+<!<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    /* 动画开始 */
+    .main{
+      position: absolute;
+      bottom: 0px;
+      width: 100px;
+      height: 100px;
+      background: red;
+      animation: pmove 5s infinite;
+      -webkit-animation: pmove 5s infinite;
+    }
+    @keyframes pmove{
+      50% {bottom: 300px}
+    }
+    @-webkit-keyframes pmove{
+      50% {bottom: 300px}
+    }
+    .opacity{
+      width: 300px;
+      height: 300px;
+      background: orange;
+      display: inline-block;
+      animation: opmove 10s infinite;
+      position: absolute;
+      left: 100px;
+      top: 50px;
+    }
+    .fugai{
+      width: 300px;
+      height: 300px;
+      display: inline-block;
+      background: blue;
+    }
+    @-webkit-keyframes opmove{
+      50% { opacity: 0;}
+    }
+    @keyframes opmove{
+      50% {opacity: 0;}
+    }
+    /* 动画结束 */
+    /* .boxshadow{
+      width: 100px;
+      height: 100px;
+      margin: 50px;
+      background: #fff;
+      box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1)
+    } */
+    /* 流式布局开始 */
+    /* .flow-item:nth-child() */
+    /* #flow{
+      position: relative;
+    }
+    .flow-item{
+      width: 200px;
+      height:200px;
+      background-color: blueviolet;
+      display: inline-block;
+    }
+    .flow-item:nth-child(4n+2),.flow-item:nth-child(4n+3){
+      height: 400px;
+      background-color: greenyellow;
+    }
+    .flow-item:nth-child(4n),.flow-item:nth-child(4n+1){
+      height: 100px;
+      background-color: yellow;
+    }
+    .flow-item:nth-child(3n){
+      height: 200px;
+      background-color: red;
+    } */
+    /* 流式布局结束 */
+    /* input::-webkit-input-placeholder{
+      color:brown;
+    } */
+  </style>
+</head>
+<body>
+  <div class="container">
+    <input type="text" placeholder="please holder" />
+  <!-- 流式布局 -->
+  <!-- <div id="flow">
+    <div class="flow-item">1</div>
+    <div class="flow-item">2</div>
+    <div class="flow-item">3</div>
+    <div class="flow-item">4</div>
+    <div class="flow-item">5</div>
+    <div class="flow-item">6</div>
+    <div class="flow-item">7</div>
+    <div class="flow-item">8</div>
+    <div class="flow-item">9</div>
+    <div class="flow-item">10</div>
+    <div class="flow-item">11</div>
+    <div class="flow-item"><p>12</p></div>
+    <div class="flow-item"><p>13</p></div>
+    <div class="flow-item"><p>14</p></div>
+    <div class="flow-item">15</div>
+    <div class="flow-item">16</div>
+    <div class="flow-item">17</div>
+    <div class="flow-item"><span>123</span>18</div>
+    <div class="flow-item">19</div>
+  </div> -->
+    <!-- 阴影 box-shadow -->
+    <!-- <div class="boxshadow">ee</div> -->
+<!-- 动画 -->
+    <p class="main"></p>
+    <div style="position: relative;">
+        <p class="opacity"></p>
+        <p class="fugai"></p>
+      </div>
+  </div>
+</body>
+<script type="text/javascript" src="./jQuery.js"></script>
+<script>
+  // 瀑布流式布局代码开始
+  window.onload = function(){
+    waterFlow("flow", "flow-item")
+  }
+
+  function waterFlow(parent, children) {
+    // 获取父元素 和 父元素下所有class为flow-item的元素
+    var oParent = document.getElementById(parent)
+    var oChild = getByClass(oParent, children)
+    // 计算列数 元素宽度相同
+    var eleWidth = oChild[0].offsetWidth
+    var documentWidth = document.documentElement.clientWidth
+    var cols = Math.floor(documentWidth / eleWidth)
+    // 存放每列的高度
+    var colsHeightArr = []
+    for(var i = 0; i < oChild.length; i++){
+      if(i < cols){
+        // 第一行顺序排列
+        colsHeightArr[i] = oChild[i].offsetHeight
+      }else{
+        // 从第二行开始 需要遍历列高度，将下一个元素放在合适的位置
+        // 获取列高最小的列
+        var minHeightCols = Math.min.apply(null, colsHeightArr)
+        var minIndex = getMinIndex(colsHeightArr, minHeightCols)
+        // 放置元素
+        var colCount = parseInt(i / 3)
+        oChild[i].style.position = "absolute"
+        oChild[i].style.top = minHeightCols + 10*colCount + "px"
+        oChild[i].style.left = minIndex * eleWidth + 10*minIndex + "px"
+
+        // 更新列高度
+        colsHeightArr[minIndex] += oChild[i].offsetHeight
+
+      }
+    }
+
+  }
+
+  // 
+  function getMinIndex(arr, value){
+    for(var i in arr){
+      if(arr[i] === value){
+        return i
+      }
+    }
+  }
+
+  // 获取子元素
+  function getByClass(parent, className) {
+    var childArr = []
+    // 获取父元素下所有的子元素
+    var oElement = parent.getElementsByTagName("*")
+    for(var i = 0; i < oElement.length; i++){
+      // 根据className判断是否是指定子元素 
+      if(oElement[i].className === className){
+        childArr.push(oElement[i])
+      }
+    }
+    return childArr;
+  }
+
+  // 瀑布流式布局代码结束
+  var name = "big window"
+  function test(){
+    var name = "this window"
+    function fn(){
+      console.log(this.name)
+    }
+    function fn1(){
+      console.log(this.name)
+    }
+    var obj = {
+      name: "this object",
+      getName: function(fn){
+        fn && fn()
+        fn1()
+        console.log(this.name)
+        return function(){
+          return this.name
+        }
+      }
+    }
+    console.log(obj.getName(fn)())
+  }
+  test()
+  
+</script>
+</html>

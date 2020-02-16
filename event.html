@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>轮播图</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+  <script src="jQuery.js"></script>
+  <style>
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="dom" style="order:12">1</div>
+    <div class="dom" style="order: 4">3</div>
+    <button class="btn1">btn1</button>
+    <button class="btn2">btn2</button>
+  </div>
+  
+</body>
+<script src="jQuery.js"></script>
+<script>
+  // 发布订阅
+  var pubList = {}
+  var events = {}
+  // 订阅
+  pubList.subscribe = function(eName, callback){
+    if(!events[eName]){
+      events[eName] = []
+    }
+    events[eName].push(callback)
+  }
+  // 只能订阅一次
+  pubList.once = function(eName, callback){
+    let wrapFun = (...args) => {
+      callback.apply(this.args)
+      pubList.unSubscribe(eName, wrapFun)
+    }
+    pubList.subscribe(eName, wrapFun)
+  }
+  // 发布
+  pubList.publish = function(...args){
+    const eName = args[0]
+    const params = [].slice.call(args,1)
+    const eFunc = events[eName]
+    eFunc && eFunc.forEach(fn => {
+      fn.apply(this, params)
+    })
+  }
+  // 取消
+  pubList.unSubscribe = function(eName, callback){
+    var currentFunc = events[eName]
+    events[eName] = currentFunc && currentFunc.filter(fn => {
+      fn !== callback
+    })
+  }
+  // 实例
+  var fun1 = function(){
+    console.log('fun1')
+  }
+  var fun2 = function(a){
+    console.log(a)
+  }
+  var fun3 = function(){
+    console.log('fun3')
+  }
+  var fun4 = function(){
+    console.log('fun4')
+  }
+  pubList.subscribe('event1', fun1)
+  pubList.once('event1', fun3)
+  pubList.once('event1', fun4)
+  pubList.subscribe('event2', fun2)
+  pubList.publish('event1')
+  pubList.publish('event2', '123')
+  pubList.unSubscribe('event1', fun1)
+  pubList.publish('event1')
+  pubList.publish('event2', '456')
+
+  // $(".btn1").on("myEvent", function(event,para){
+  //   console.log(para)
+  // })
+  // $(".btn2").click(function(){
+  //   $(".btn1").trigger('myEvent', "123")
+  // })
+  // var btn1 = document.getElementsByClassName("btn1")[0]
+  // var btn2 = document.getElementsByClassName("btn2")[0]
+  // btn1.addEventListener('click', fun1)
+  // btn1.addEventListener('click', fun2)
+  // function fun1(){
+  //   console.log($(".dom")[0].innerHTML)
+  // }
+  // function fun2(){
+  //   console.log($(".dom")[1].innerHTML)
+  // }
+
+  // btn2.addEventListener('click',function(){
+  //   // btn1.removeEventListener("click",fun1)
+  // })
+// $(".wrapper").click(function (event) {
+//   console.log(1)
+// })
+// $(".wrapper").click(function (event) {
+//   console.log(12)
+// })
+// var btn1 = document.getElementsByClassName("wrapper")[0]
+// btn1.onclick = function(){
+  
+//   console.log(1)
+// }
+// btn1.onclick = function(){
+  
+//   console.log(2)
+// }
+
+// function fun1(a){
+//   return function(){
+//     ++a
+//     console.log(a)
+//   }
+// }
+// var fun2 = fun1(1)
+// var fun3 = fun1(3)
+// var fun4 = fun1()
+// setTimeout(fun2, 1000)
+// setTimeout(fun2, 5000)
+// setTimeout(fun3, 4000)
+class EventEmitter{
+  constructor(){
+    this.eventList = {}
+  }
+  // 事件绑定
+  on(event, callback){
+    let eventItem = this.eventList[event]
+    if(!eventItem){
+      eventItem = []
+    }
+    eventItem.push(callback)
+  }
+  // 解绑
+  off(event) {
+
+  }
+}
+</script>
+</html>

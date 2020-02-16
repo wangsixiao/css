@@ -1,0 +1,366 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>元素水平垂直居中</title>
+	<style type="text/css">
+	/* .ct{
+    width:300px;
+    height: 300px;
+    border:1px solid seagreen; */
+    /* 1 */
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -150px; */
+    /* 2 IE9+ */
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+    /* 3 */
+    /* position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto; */
+    /* 4 */
+    /* } */
+    /* .container{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 800px;
+      height: calc(100vh);
+    }
+    p{
+      flex: 1;
+      border:1px solid seagreen;
+      flex-direction: column;
+    }
+    .ct{
+      flex: 2;
+    } */
+   .ct1{
+     width: 0;
+     height: 0;
+     border-width: 10px 20px 30px 40px;
+     border-style: solid;
+     border-color: red yellow green blue;
+   }
+   .ct{
+     width: 100%;
+     height: 1px;
+     background: red;
+   }
+   .ct2{
+     width: 100px;
+     height: 100px;
+     background: purple;
+     position: relative;
+   }
+   .ct2::before{
+     content:'';
+     width: 0;
+     height: 0;
+     border: 25px solid transparent;
+     border-top-color: purple;
+     position: absolute;
+     top: 100%;
+     left: 25%;
+   }
+   .ct3{
+     width: 200px;
+     height: 200px;
+     background: yellow;
+     opacity: 0.5;
+     /* filter: Alpha(Opacity=50); */
+     background-color: rgba(255,255,0,0.5);
+   }
+   .ct4{
+     width:100px;
+     height: 100x;
+     background: blueviolet;
+   }
+   p:not(:nth-child(2)){
+     background: red;
+   }
+	</style>
+</head>
+<body>
+<div class="container">
+  <p class="ct">ceshi</p>
+  <p class="ct1">ceshi1</p>
+  <p class="ct2">ceshi1</p>
+  <div class="ct3">
+      <p class="ct4">ceshi1</p>
+  </div>
+  <form id="personForm">
+      disabled<input name="name" value='qwe' type="text" disabled/>
+      readonly<input name="age" value='12' type="text" readonly/>
+      hidden<input name="color" value='red' type="text" hidden/>
+    <input type="submit" value="add" disabled/>
+    <input type="submit" value="add" readonly/>
+  </form>
+
+  
+</div>
+</body>
+<script type="text/javascript" src="./jQuery.js"></script>
+<script type="text/javascript">
+
+function a(){
+      return new Promise((resolve,reject) => {
+        console.log("a")
+        setTimeout(() => {resolve('a')},1000)
+      })
+}
+function b(){
+      return new Promise((resolve,reject) => {
+        console.log("b")
+        setTimeout(() => {reject('b')},1000)
+      })
+}
+function c(){
+      return new Promise((resolve,reject) => {
+        console.log("c")
+        setTimeout(() => {resolve('c')},1000)
+      })
+}
+async function result(){
+  while(true){
+    try{
+      await a()
+     await b()
+     await c()
+    } catch(err){
+      console.log("err")
+    }
+     
+  }
+}
+
+result()
+
+
+  
+Promise.resolve(1).then(2).then(()=>{
+    Promise.resolve(3)
+  }).then((data)=>{console.log(data)})
+
+  function getData (id, callback) {
+    setTimeout(() => {
+      callback(id+1)
+    }, 2000)
+  }
+
+  function toPromise(fun){
+    return function(){
+      const arg = [].slice.call(arguments, 0)
+      return new Promise((resolve, reject) => {
+        fun.call(null, ...arg, val => {
+          resolve(val)
+        })
+      })
+    }
+  }
+
+  let funPromise = toPromise(getData)
+
+  $("#personForm").serialize()
+
+// 'use strict';
+  for (var i = 0;i<6;i++){
+    setTimeout(function(...j){
+      console.log(j)
+    }, i*1000, i,'123')
+  }
+
+
+
+  /**
+   * 2.消息队列实现。实现一个消息队列，满足如下功能：
+    1. 可以添加任务，任务包含任务数据，任务触发的北京时间点。
+    2. 在任务到达触发时间点时，触发执行此任务。
+    3. 任务的触发时间可以接受 1s 的延迟。
+  */
+
+
+ function eventQueue(){
+  function  Queue() {
+    // 队列数组
+    this.queueList = [];
+  }
+
+  Queue.prototype = {
+    add: function (event, delayTime) {
+      this.queueList.push({event: event});
+      if (delayTime <= 0) {
+        this.process();
+      } else {
+        let self = this;
+        setTimeout(function () {
+          self.process();
+        }, delayTime);
+      }
+    },
+
+    process: function () {
+      var item = this.queueList.shift();
+      item.event();
+    }
+  };
+ }
+ eventQueue()
+  
+
+  // 随机遍历数组。一个长度为 n 的数组，每次随机挑选一个元素，尽可能快的遍历到全部元素，最终返回一个新的数组。
+  let arr1 = [11,2,43,56,76,3,45,788,123,47,97,41,9,55,66,70]
+  let result1 = []
+  let getArr = function(arr){
+    let len = arr.length
+    let index  = parseInt(Math.random() * len)
+    result1.push(arr[index])
+    arr.splice(index, 1)
+    if(arr.length > 0){
+      getArr(arr)
+    }
+  }
+  getArr(arr1)
+ //给定一个数组a和一个长度值l，生成一个指定长度值为l的新数组b，要求b中的每一个元素都是从a中随机获取的，且数组元素不可重复。
+  let arr = [11,2,43,56,76,3,45,788,123,47,97,41,9,55,66,70]
+  let len = 8
+  let result = []
+  let getData = function(){
+    // 获取随机的位数
+    let ran = parseInt(Math.random() * 16);
+    if(result.indexOf(arr[ran]) == -1){
+      result.push(arr[ran])
+    }else{
+      getData()
+    }
+  }
+  for(let i=0; i<len; i++){
+    getData()
+  }
+  // 使用js写一个栈结构。然后如何让这个栈满足两个调用者同时使用的要求？
+  function stack(){
+    this.dataStore = [];
+    this.top = 0;
+    this.push = push;
+    this.pop = pop;
+    this.peek = peek;
+    this.leng = leng;
+    this.clear = clear;
+  }
+  function push(ele){
+    this.dataStore[this.top++] = ele
+  }
+  function pop(){
+    return this.dataStore[--this.top]
+  }
+  function peek(){
+    return this.dataStore[this.top-1]
+  }
+  function leng(){
+    return this.top
+  }
+  function clear(){
+    this.top = 0
+  }
+  var s = new stack()
+
+  // 现在对于给定的一个字符串s,请计算出字典序最大的s的子序列。
+
+
+  // 设计一个toPromise方法，参数是一个函数（比如getData）返回值是一个函数（比如getDataPromise）
+  let getdata = function(id, callback){
+    setTimeout(()=>{
+      callback(id+1)
+    },2000)
+  }
+  function toPromise(fun){
+    return function(){
+      let arg = [].slice.call(arguments,0);
+      return new Promise(function(resolve, reject){
+        fun.call(null, ...arg, val => {
+          resolve(val)
+        })
+      })
+    }
+  }
+  let funPromise = toPromise(getdata)
+  funPromise(23).then(val => {
+    console.log(val)
+  }).catch(() => { console.log(2) })
+ 
+.then(() => { console.log(3) })
+ 
+.catch(() => { console.log(4) })
+//自己封装一个 instanceof
+
+function instanceofFun(l,r){
+  let rp = r.prototype;
+  lp=l.__proto__;
+  while(true){
+    if(lp === null){
+      return false
+    }
+    if(lp === rp){
+      return true
+    }
+    lp = lp.__proto__
+  }
+}
+
+//Fibinacc数列
+function fibi(n){
+  const res = [0,1];
+  if(n < 2){
+    return res[n]
+  }
+  let f1 = 0;
+  f2 = 1;
+  fn = 0;
+  for(let i=2; i<=n; i++){
+    fn = f1 + f2;
+    f1 = f2;
+    f2 = fn;
+  }
+  return fn;
+}
+console.log(fibi(4)+"fibi")
+//输入一个链表，输出该链表中倒数第k个结点
+function findk(head, k){
+  if(head == null){
+    return null;
+  }
+  let arr = [];
+  p = head;
+  while(p!==null){
+    arr.push(p);
+    p = p.next
+  }
+  return arr[arr.length - k]
+}
+//
+function serialize(proot){
+  if(proot!==null){
+    arr.push(proot.val)
+    serialize(proot.left);
+    serialize(proot.right);
+  }
+}
+// 给出一个链表：1->2->3->4->5 将链表两两交换2->1->4->3->5，然后返回交换后的第一个头指针2
+function change(head){
+  let cur = head;
+  next = cur.next;
+}
+// 给出一个实际金额，比如40 以及一个优惠券面额列表比如[30, 50, 100…],每种优惠券数量不限 要求返回能组合成实际金额的最大值，比如：实际金额40 -> 返回30；80 -> 80=30+50；110 -> 110=30+30+50
+
+
+
+</script>
+</html>
